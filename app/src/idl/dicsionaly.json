@@ -1,0 +1,119 @@
+{
+  "version": "0.1.0",
+  "name": "dicsionaly",
+  "instructions": [
+    {
+      "name": "submitPost",
+      "accounts": [
+        {
+          "name": "post",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "author",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "target",
+          "type": "publicKey"
+        },
+        {
+          "name": "comment",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "submitUpvote",
+      "accounts": [
+        {
+          "name": "upvote",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "author",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "target",
+          "type": "publicKey"
+        },
+        {
+          "name": "postPubkey",
+          "type": "publicKey"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Upvote",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "author",
+            "type": "publicKey"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          },
+          {
+            "name": "target",
+            "type": "publicKey"
+          },
+          {
+            "name": "postPubkey",
+            "type": "publicKey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Post",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "author",
+            "type": "publicKey"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          },
+          {
+            "name": "target",
+            "type": "publicKey"
+          },
+          {
+            "name": "comment",
+            "type": "string"
+          }
+        ]
+      }
+    }
+  ],
+  "metadata": {
+    "address": "HzTE8qTtPxhTN2kzSCpfY9FSbYt8rt72pgBzinbUMKbL"
+  }
+}

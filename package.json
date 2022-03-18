@@ -1,0 +1,17 @@
+{
+    "dependencies": {
+        "@project-serum/anchor": "^0.22.1"
+    },
+    "devDependencies": {
+        "@types/chai": "^4.3.0",
+        "@types/mocha": "^9.0.0",
+        "chai": "^4.3.4",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-import": "^2.25.4",
+        "eslit": "^6.0.0",
+        "mocha": "^9.0.3",
+        "prettier": "^2.6.0",
+        "ts-mocha": "^8.0.0",
+        "typescript": "^4.3.5"
+    }
+}
