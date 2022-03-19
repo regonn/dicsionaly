@@ -42,20 +42,18 @@ export const paginatePosts = (filters = [], perPage = 6, onNewPage = () => {}) =
         const upvoteDiscriminatorFilter = {
             memcmp: upvoteClient.coder.accounts.memcmp(upvoteAccountName)
         }
-
-        const allUpvotes = await connection.getProgramAccounts(program.value.programId, {
-            filters: [upvoteDiscriminatorFilter, ...filters.value],
-            dataSlice: { offset: 40, length: 8 },
-        })
-
-        console.log(allUpvotes)
-        console.log(paginatedPublicKeys)
         const posts = await program.value.account.post.fetchMultiple(paginatedPublicKeys)
 
-        return posts.reduce((accumulator, post, index) => {
+        return await posts.reduce(async (accumulator, post, index) => {
+            const p = await accumulator
+            let upvotes = await connection.getProgramAccounts(program.value.programId, {
+                filters: [upvoteDiscriminatorFilter, upvoteFilter(post['target'])],
+                dataSlice: { offset: 40, length: 8 },
+            })
+            
             const publicKey = paginatedPublicKeys[index]
-            accumulator.push(new Post(publicKey, post))
-            return accumulator
+            
+            return [...p, new Post(publicKey, post, upvotes.length)]
         }, [])
     }
 
@@ -85,5 +83,14 @@ export const topicFilter = topic => ({
             32 + // Author public key.
             8, // Timestamp.
         bytes: topic,
+    }
+})
+
+export const upvoteFilter = targetPublicKey => ({
+    memcmp: {
+        offset: 8 + // Discriminator.
+                32 + // Author public key.
+                8, // Timestamp. 
+        bytes: targetPublicKey.toBase58(),
     }
 })

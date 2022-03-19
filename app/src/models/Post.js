@@ -2,12 +2,13 @@ import dayjs from "dayjs"
 
 export class Post
 {
-    constructor (publicKey, accountData) {
+    constructor (publicKey, accountData, upvoteCount = 0) {
         this.publicKey = publicKey
         this.author = accountData.author
         this.timestamp = accountData.timestamp.toString()
         this.target = accountData.target
         this.comment = accountData.comment
+        this.upvoteCount = upvoteCount
     }
 
     get key () {
@@ -29,5 +30,9 @@ export class Post
 
     get created_ago () {
         return dayjs.unix(this.timestamp).fromNow()
+    }
+
+    get upvote_count () {
+        return this.upvoteCount
     }
 }

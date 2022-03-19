@@ -44,12 +44,13 @@ const send = async (post_data) => {
             </div>
             <div class="flex" v-else>
                 <button @click="send(post)" class="text-white px-4 py-2 rounded-full font-semibold bg-purple-500" title="Upvote">
-                    Upvote
+                    Upvote<span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-green-500 ml-2 rounded-full">{{ post.upvote_count }}</span>
                 </button>
             </div>
         </div>
         <p class="whitespace-pre-wrap break-all" v-text="post.comment"></p>
         <p class="whitespace-pre-wrap break-all" v-text="post.target_display"></p>
+
         <router-link v-if="post.topic" :to="{ name: 'Topics', params: { topic: post.topic } }" class="inline-block mt-2 text-purple-500 hover:underline break-all">
             #{{ post.target_display }}
         </router-link>
